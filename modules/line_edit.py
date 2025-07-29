@@ -3,8 +3,8 @@ from modules.utils.log import edit_log
 from enums.keyword import keywords
 
 
-def fix_multiple_spaces(line, states):
-    if not states["in_comment_block"]:
+def fix_multiple_spaces(line):
+    if line.count("/*") < 0:
         line = re.sub(r" {2,}", " ", line)
     return line
 
@@ -84,7 +84,7 @@ def fix_edition_in_line(cleaned_line, line_number, states):
         edit_log("Space after keyword needed", line_number)
 
     tmp_line = cleaned_line
-    cleaned_line = fix_multiple_spaces(cleaned_line, states)
+    cleaned_line = fix_multiple_spaces(cleaned_line)
     if cleaned_line != tmp_line:
         edit_log("Consecutive spaces", line_number)
 
