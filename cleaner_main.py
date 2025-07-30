@@ -52,7 +52,6 @@ def copy_file_properly(src, dest):
                 dest_file.write(lines[i])
 
 
-# TODO : supprimer les espace après les types -> mettre un tab
 def main():
     parser = argparse.ArgumentParser(
         description="Create a copy of a c file but clean basic norminette errors"

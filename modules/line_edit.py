@@ -32,7 +32,7 @@ def fix_space_before_semicolon(line):
 
 def fix_space_operator(line, states):
     if states["in_function"]:
-        line = re.sub(r"\t*\s*([=!\-\*\+/<>]{0,1})=\s*\t*", r" \1= ", line)
+        line = re.sub(r"\t*\s*([=!\-\*\+/<>&]{0,1})=\s*\t*", r" \1= ", line)
         line = re.sub(r"\t*\s*([\-\+]{2,})\s*\t*", r"\1", line)
         # We edit only if there is no other operator beside/var
         line = re.sub(
@@ -46,6 +46,10 @@ def fix_space_operator(line, states):
             r" * ",
             line,
         )
+        # referencement
+        line = re.sub(r"&{1,1}\s*", "&", line)
+        # and / or
+        line = re.sub(r"\s*([&|]{2,2})\s*", r" \1 ", line)
         # coma
         line = re.sub(r"(?<![0123456789]),\s*(?![0123456789])", r", ", line)
     return line
