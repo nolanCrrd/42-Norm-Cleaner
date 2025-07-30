@@ -4,7 +4,7 @@ from enums.keyword import keywords
 
 
 def fix_multiple_spaces(line):
-    if line.count("/*") < 0:
+    if line.count("/*") <= 0:
         line = re.sub(r" {2,}", " ", line)
     return line
 
@@ -30,6 +30,7 @@ def fix_space_before_semicolon(line):
     return line
 
 
+# TODO : no space arround "-" if "-x"
 def fix_space_operator(line, states):
     if states["in_function"]:
         line = re.sub(r"\t*\s*([=!\-\*\+/<>&]{0,1})=\s*\t*", r" \1= ", line)
@@ -42,7 +43,7 @@ def fix_space_operator(line, states):
         )
         # pointer exeption
         line = re.sub(
-            r"(?<![\+\-/%=!\(\[\}])\s*\t*\*\s*\t*(?![\+\-\*/%=!abcdefghijklmnopqrstuvwxyz\}\]\)])",
+            r"(?<![\+\-/%=!\(\[\}])\s*\t*\*\s*\t*(?![\+\-\*/%=!abcdefghijklmnopqrstuvwxyz\(\{\[\]\}\)])",
             r" * ",
             line,
         )
